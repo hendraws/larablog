@@ -13,4 +13,8 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('front');
+
+Route::get('/home', function () {
+    return view('home')->with('title','Home Page');
 });
