@@ -36,9 +36,7 @@
     <section class="content">
         <!-- Default box -->
         <div class="card">
-            <div class="col-md-12">
-                @yield('content')
-            </div>
+            @yield('content')
         </div>
         <!-- /.card -->
 

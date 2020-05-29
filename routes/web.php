@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home')->with('title','Home Page');
 });
+
+Route::resource('/category','CategoryController');
+Route::get('/category/{id}/delete','CategoryController@delete');
