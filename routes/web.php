@@ -21,3 +21,9 @@ Route::get('/home', function () {
 
 Route::resource('/category','CategoryController');
 Route::get('/category/{id}/delete','CategoryController@delete');
+
+Route::resource('/tags','TagController');
+Route::get('/tags/{id}/delete','TagController@delete');
+
+Route::resource('/post','PostController');
+Route::get('/post/{id}/delete','PostController@delete');

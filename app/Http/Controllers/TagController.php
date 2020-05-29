@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Tag;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Brian2694\Toastr\Facades\Toastr;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-    
-        return view('backend.category.index',compact('categories'))->with('title','Category Page');
+        $tags = Tag::get();
+        
+        return view('backend.tag.index',compact('tags'))->with('title','Tag Page');
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.category.create_modal')->with('title','Add Category');
+        return view('backend.tag.create_modal')->with('title','Add Tag');
     }
 
     /**
@@ -40,17 +40,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'name.unique' => 'category name has already been taken.',
+            'name.unique' => 'tag name has already been taken.',
         ];
 
         $validatedData = $request->validate([
-            'name' => 'required|unique:categories|max:50',
+            'name' => 'required|unique:tags|max:50',
         ],$messages);
-
+        
         $validatedData['slug'] = Str::slug($request->name);
         
-        Category::create($validatedData);
-        Toastr::success('category data has been added.');
+        Tag::create($validatedData);
+        Toastr::success('tag data has been added.');
         return redirect()->back();
     }
     
@@ -73,8 +73,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('backend.category.edit_modal',compact('category'))->with('title','Edit Category');
+        $tag = Tag::find($id);
+        return view('backend.tag.edit_modal',compact('tag'))->with('title','Edit Tag');
     }
 
     /**
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'name.unique' => 'category name has already been taken.',
+            'name.unique' => 'tag name has already been taken.',
         ];
 
         $validatedData = $request->validate([
@@ -96,8 +96,8 @@ class CategoryController extends Controller
 
         $validatedData['slug'] = Str::slug($request->name);
 
-        Category::whereId($id)->update($validatedData);
-        Toastr::success('category data has been edited.');
+        Tag::whereId($id)->update($validatedData);
+        Toastr::success('tag data has been edited.');
         return redirect()->back();
     }
 
@@ -114,9 +114,9 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        Toastr::success('category data has been deleted.');
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+        Toastr::success('tag data has been deleted.');
         return redirect()->back();
     }
 }

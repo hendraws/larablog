@@ -26,12 +26,29 @@
               </p>
             </a>  
           </li>
-          <!-- <li class="nav-header">MISCELLANEOUS</li> -->
+          
+          <li class="nav-header">CONTENT</li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{action('PostController@index')}}" class="nav-link {{ (request()->segment(1) == 'post') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-fw fa-file-alt"></i>
+              <p>
+                Post
+              </p>
+            </a>  
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{action('CategoryController@index')}}" class="nav-link {{ (request()->segment(1) == 'category') ? 'active' : '' }}">
               <i class="nav-icon fas fa-fw fa-list-ul"></i>
               <p>
                 Category
+              </p>
+            </a>  
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{action('TagController@index')}}" class="nav-link {{ (request()->segment(1) == 'tags') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-fw fa-tags"></i>
+              <p>
+                Tags
               </p>
             </a>  
           </li>
