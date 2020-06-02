@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Brian2694\Toastr\Facades\Toastr;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Str;
+    use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {

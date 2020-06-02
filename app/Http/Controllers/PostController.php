@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
+use App\Tag;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -26,7 +33,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::get();
+        $tags       = Tag::get();
+        
+        return view('backend.post.create',compact('categories','tags'))->with('title','Post Page');
     }
 
     /**
@@ -37,7 +47,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+        $this->validate($request, [
+                    'title'       => 'required',
+                    'category_id' => 'required',
+                    'content'     => 'required',
+                    'image'       => 'required'
+                ]);
+            
+        $image              = $request->image;
+        $newImage              = time().$image->getClientOriginalName();
+        
+        $post = Post::create([
+                    'title'       => $request->title,
+                    'slug'       => Str::slug($request->title),
+                    'category_id' => $request->category_id,
+                    'content'     => $request->content,
+                    'image'       => 'public/upload/posts/'.$newImage,
+        ]);
+        $post->tags()->attach($request->tags);
+        $image->move('public/upload/posts/',$newImage);
+        
+        Toastr::success('Post data has been added.');
+        return Redirect::action('PostController@index');
+
     }
 
     /**
