@@ -8,8 +8,7 @@
 </div>
 <div class="row mr-3 mt-3 ">
     <div class="col-md-12">
-        <a class="btn btn-primary btn-sm float-right" href="{{ action('PostController@create') }}" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-fw fa-plus mr-2 ml-2"></i><span>Add Post</span></a>
-        <a class="btn btn-warning btn-sm float-right mr-3" href="{{ action('PostController@recyclebin') }}" data-toggle="tooltip" data-placement="top" title="Add"><i class="fas fa-fw fa-trash mr-2"></i><span>Recycle Bin</span></a>
+        <a class="btn btn-primary btn-sm float-right" href="{{ action('PostController@create') }}" data-toggle="tooltip" data-placement="top" title="Add"><i class="fa fa-fw fa-plus mr-2"></i><span>Add Post</span></a>
     </div>
 </div>
 <!-- /.card-header -->
@@ -38,8 +37,8 @@
                 </td>
                 <td><img src="{{ asset($post->image) }}" class="img-thumbnail"></td>
                 <td class="text-center">
-                    <a class="btn btn-warning btn-sm" href="{{ action('PostController@edit', $post->id) }}" data-toggle="tooltip" data-placement="left" title="edit"><i class="fas fa-fw fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm delete" data-id="{{$post->id}}" data-url="{{ action('PostController@trash', $post->id) }}" data-toggle="tooltip" data-placement="right" title="trash"><i class="fas fa-fw fa-trash-alt"></i></a>
+                    <a class="btn btn-warning btn-sm" href="{{ action('PostController@restore', $post->id) }}" data-toggle="tooltip" data-placement="left" title="restore"><i class="far fa-fw fa-window-restore"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm delete" data-id="{{$post->id}}" data-url="{{ action('PostController@delete', $post->id) }}" data-toggle="tooltip" data-placement="right" title="delete"><i class="fas fa-fw fa-ban"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -73,6 +72,23 @@
     });
 
     $('body').on('click', '.delete', function() {
+        var url = $(this).attr('data-url');
+        swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+            .then((willDelete) => {
+                console.log(willDelete);
+                if (willDelete.value) {
+                    window.location = url;
+                }
+            });
+    }).on('click', '.restore', function() {
         var url = $(this).attr('data-url');
         swal.fire({
                 title: 'Are you sure?',
