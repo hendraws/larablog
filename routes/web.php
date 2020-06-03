@@ -10,16 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
-    return view('home')->with('title','Home Page');
+    return view('welcome');
 })->name('front');
 
-Route::get('/home', function () {
-    return view('home')->with('title','Home Page');
-});
-
-Route::resource('/category','CategoryController');
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('/category','CategoryController');
 Route::get('/category/{id}/delete','CategoryController@delete');
 
 Route::resource('/tags','TagController');
@@ -30,3 +28,11 @@ Route::get('/post/{id}/trash','PostController@trash');
 Route::get('/post/{id}/restore','PostController@restore');
 Route::get('/post/{id}/delete','PostController@delete');
 Route::resource('/post','PostController');
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+});
+
