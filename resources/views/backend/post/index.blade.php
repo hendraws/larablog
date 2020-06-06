@@ -21,6 +21,7 @@
                 <th>Category</th>
                 <th>Tags</th>
                 <th>Image</th>
+                <th>Create By</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,12 +32,11 @@
                 <td>{{ $post->category->name}}</td>
                 <td> 
                     @foreach($post->tags as $tag)
-                        <ul>
-                            <li>{{$tag->name}}</li>
-                        </ul>
+                            <span class="badge badge-info mx-2">{{$tag->name}}</span>
                     @endforeach
                 </td>
                 <td><img src="{{ asset($post->image) }}" class="img-thumbnail"></td>
+                <td>{{ $post->user->name}}</td>
                 <td class="text-center">
                     <a class="btn btn-warning btn-sm" href="{{ action('PostController@edit', $post->id) }}" data-toggle="tooltip" data-placement="left" title="edit"><i class="fas fa-fw fa-edit"></i></a>
                     <a href="#" class="btn btn-danger btn-sm delete" data-id="{{$post->id}}" data-url="{{ action('PostController@trash', $post->id) }}" data-toggle="tooltip" data-placement="right" title="trash"><i class="fas fa-fw fa-trash-alt"></i></a>

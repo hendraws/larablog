@@ -8,6 +8,7 @@ use App\Tag;
 use File;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -64,6 +65,7 @@ class PostController extends Controller
                     'category_id' => $request->category_id,
                     'content'     => $request->content,
                     'image'       => 'public/upload/posts/'.$newImage,
+                    'user_id'     => Auth::id(),
         ]);
         $post->tags()->attach($request->tags);
         $image->move('public/upload/posts/',$newImage);
@@ -123,6 +125,7 @@ class PostController extends Controller
                     'slug'       => Str::slug($request->title),
                     'category_id' => $request->category_id,
                     'content'     => $request->content,
+                    'user_id'     => Auth::id(),
                     
         ];
 

@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->integer('category_id');
             $table->text('content');
             $table->string('image');
+            $table->integer('user_id');        
             $table->timestamps();
             $table->softDeletes();
         });
