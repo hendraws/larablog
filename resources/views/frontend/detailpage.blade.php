@@ -21,7 +21,6 @@
 </div>
 @endsection
 @section('content')
-{{$post->content}}
+{!! $post->content !!}
 
-<div class="clearfix visible-md visible-lg"></div>
 @endsection

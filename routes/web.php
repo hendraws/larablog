@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Route::group(['prefix'=>'admin'], function(){
+
+    Auth::routes();
+});
 
 
 

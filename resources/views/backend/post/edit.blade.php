@@ -71,6 +71,7 @@
 @endsection
 @section('add-js')
 <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
     $('.custom-file-input').on('change', function() {
         let filename = $(this).val().split('\\').pop();
@@ -87,6 +88,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('form')
         }
     });
+    CKEDITOR.replace( 'content' );
 </script>
 <!-- Select2 -->
 
