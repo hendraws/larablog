@@ -11,14 +11,19 @@
 |
 */
 Route::group(['prefix'=>'admin'], function(){
-
     Auth::routes();
 });
 
 
 
 Route::get('/', 'BlogController@index');
-Route::get('/{slug}', 'BlogController@detail');
+Route::get('/post/{slug}', 'BlogController@detail');
+Route::get('/post', 'BlogController@listPost');
+
+Route::get('/category', 'BlogController@allCategories');
+Route::get('/category/{category}', 'BlogController@category');
+
+Route::get('/search','BlogController@search');
 
 Route::group(['middleware' => 'auth','prefix'=>'admin'], function(){
     Route::resource('/category','CategoryController');

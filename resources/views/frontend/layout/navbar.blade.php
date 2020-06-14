@@ -17,7 +17,7 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>
+						<a href="index.html" class="logo"><img src="{{ asset('frontend/img/logo.png')}}" alt=""></a>
 					</div>
 					<!-- /logo -->
 
@@ -26,7 +26,7 @@
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form>
+							<form action="{{ action('BlogController@search') }}" method="GET">
 								<input class="input" name="search" placeholder="Enter your search...">
 							</form>
 							<button class="nav-close search-close">
@@ -45,11 +45,22 @@
 					<!-- nav -->
 					<ul class="nav-menu">
 						<li class="{}">
-							<a href="/">Home</a>
+							<a href="{{ action('BlogController@index') }}">Home</a>
 						</li>
-						<li><a href="#">Technology</a></li>
-						<li><a href="#">Health</a></li>
-						<li><a href="#">Travel</a></li>
+						<li><a href="{{ action('BlogController@listPost') }}">List Blog</a></li>
+						<li class="has-dropdown">
+							<a href="#">Category</a>
+							<div class="dropdown">
+								<div class="dropdown-body">
+									<ul class="dropdown-list">
+										@foreach ($categories as $category)
+											<li><a href="{{ action('BlogController@category', $category->slug) }}">{{ $category->name }}</a></li>
+										@endforeach
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li><a href="#">About Me</a></li>
 					</ul>
 					<!-- /nav -->
 				</div>
